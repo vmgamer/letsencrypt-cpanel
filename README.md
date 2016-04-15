@@ -6,7 +6,7 @@ Support for service SSL certificates has been recently added, and is considered 
 ### Installation
 
 ```
-/usr/local/cpanel/3rdparty/bin/git clone https://github.com/Prajithp/letsencrypt-cpanel.git
+/usr/local/cpanel/3rdparty/bin/git clone https://github.com/vmgamer/letsencrypt-cpanel.git
 cd letsencrypt-cpanel
 ./install.sh
 ```

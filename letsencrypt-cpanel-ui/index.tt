@@ -117,7 +117,7 @@
       </p>
       
       <a href="javascript:history.back()" class="navbar-btn btn-info btn pull-right">
-      <span class="glyphicon glyphicon-home"></span>Back</a>
+      <span class="glyphicon glyphicon-home"></span> Back</a>
       
     </div>
   </div>

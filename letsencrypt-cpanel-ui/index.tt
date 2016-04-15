@@ -22,7 +22,7 @@
 <body>
   <div class="container">
     <div class="content">
-      <legend class="well text-center text-warning fa fa-expeditedssl fa-lg"> Manage letsencrypt ssl certificate</legend>
+      <legend class="well text-center text-info fa fa-shield fa-lg"> Let's Encrypt SSL Manager - DomaiNesia </legend>
       [% IF message %]
       <div class="alert alert-[% status %] alert-dismissible">
         <div class="text-center">
@@ -35,8 +35,8 @@
           <strong>SSL enabled Vhosts</strong>
           <div class="btn pull-right">
             <a href="#" class="btn btn-info btn-mini" data-toggle="modal" data-target="#install">
-              <span class="fa fa-chain fa-sm"></span>
-              Install letsencrypt SSL Cert
+              <span class="fa fa-expeditedssl fa-sm"></span>
+              Install New Let's Encrypt SSL
             </a>
           </div>
         </div>

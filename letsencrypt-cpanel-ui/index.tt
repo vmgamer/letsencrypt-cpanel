@@ -112,12 +112,13 @@
   </div>
   <div class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
-      <p class="navbar-text pull-left">&copy; 2016 - App Developed By Prajith
-           <a href="http://ndimensionz.com" target="_blank" >Ndimensionz</a>
+      <p class="navbar-text pull-left">Let's Encrypt by 
+           <a href="https://www.domainesia.com" target="_blank" >DomaiNesia</a>
       </p>
       
-      <a href="http://ndimensionz.com" target="_blank" class="navbar-btn btn-danger btn pull-right">
-      <span class="glyphicon glyphicon-star"></span> Ndimensionz</a>
+      <a href="javascript:history.back()" class="navbar-btn btn-info btn pull-right">
+      <span class="glyphicon glyphicon-home"></span>Back</a>
+      
     </div>
   </div>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

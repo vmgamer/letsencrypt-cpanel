@@ -1,5 +1,8 @@
 package Cpanel::LetsEncrypt;
 
+BEGIN {
+    unshift @INC, q{/usr/local/cpanel};
+}
 
 use strict;
 use JSON                           ();
@@ -13,7 +16,7 @@ use Cpanel::OpenSSL                ();
 use Cpanel::LetsEncrypt::WHM       ();
 use Cpanel::LetsEncrypt::Config    ();
 
-our $VERSION = '1.0.1';
+our $VERSION = '1.1.0';
 
 sub new {
     my ($class, %opts) = @_;
@@ -134,37 +137,13 @@ sub renew_ssl_certificate {
     }
 
     my $config_file = $self->{'config_dir'} . '/' . $self->{'domain'} . '.json';
-    my $hash;
-
     if (!-e $config_file) {
-        my $json_resp     = $self->{whm}->get_domain_userdata($self->{domain});
-        my $contact_email = $self->{whm}->get_email_by_domain($self->{domain});
-
-        if (!$contact_email) {
-            $return_vars->{'message'} = "Update the domain owner email id in whm first";
-            return $return_vars;
-        }
-
-        my $aliases = $json_resp->{serveralias};
-        $aliases =~ s/\s+/\,/g;
-
-        $hash = {
-            'rsa-key-size'     => '4096',
-            'authenticator'    => 'webroot',
-            'webroot-path'     => $json_resp->{documentroot},
-            'server'           => 'https://acme-v01.api.letsencrypt.org/directory',
-            'renew-by-default' => 'True',
-            'agree-tos'        => 'True',
-            'ip_address'       => $json_resp->{ip},
-            'email'            => $contact_email,
-            'domains'          => "$self->{domain}, $aliases",
-            'domain'           => $self->{domain},
-            'username'         => $json_resp->{user},
-        };       
+        $return_vars->{'message'} =
+"Could not find the domain config file, please revoke the ssl cert and install it again";
+        return $return_vars;
     }
-    else {
-        $hash   = $self->read_as_hash($config_file);
-    }
+
+    my $hash   = $self->read_as_hash($config_file);
     my $status = $self->_request_for_ssl_cert($hash);
 
     if (!$status->{'success'}) {
@@ -245,12 +224,12 @@ sub _request_for_ssl_cert {
       
         my $conver_ca_output_ref = $self->_convert_to_crt($tmp_ca, $ca_file);
         if ($conver_ca_output_ref->{stderr}) {
-            die  "Error occured at line number ".  __LINE__ . ': ' . $conver_ca_output_ref->{stderr};
+            die  "Error occurred at line number ".  __LINE__ . ': ' . $conver_ca_output_ref->{stderr};
         }
 
         my $output_ref = $self->_convert_to_crt($der_file, $cert_file);
         if ($output_ref->{stderr}) {
-            die "Error occured at line number ".  __LINE__ . ': ' . $output_ref->{stderr};
+            die "Error occurred at line number ".  __LINE__ . ': ' . $output_ref->{stderr};
         }
     };
 
@@ -260,7 +239,7 @@ sub _request_for_ssl_cert {
         }
         else {
             $result_hash->{message} =
-                "Error occured: Status: $@->{status}, Detail: $@->{detail}, Type: $@->{type}\n";
+                "Error occurred: Status: $@->{status}, Detail: $@->{detail}, Type: $@->{type}\n";
         }
         $result_hash->{success} = '0';
 

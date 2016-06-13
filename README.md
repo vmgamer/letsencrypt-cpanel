@@ -18,6 +18,7 @@ Any SSL certificates added will automatically attempt renewal. You should not ne
 ### Upgrading
 	
 ```
+rm -rf letsencrypt-cpanel
 cd letsencrypt-cpanel
 git pull
 ./upgrade.sh

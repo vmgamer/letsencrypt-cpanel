@@ -19,7 +19,7 @@ Any SSL certificates added will automatically attempt renewal. You should not ne
 	
 ```
 cd letsencrypt-cpanel
-git pull
+/usr/local/cpanel/3rdparty/bin/git pull
 ./upgrade.sh
 ```
 

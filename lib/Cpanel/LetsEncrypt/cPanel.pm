@@ -66,18 +66,12 @@ sub get_certificate {
 
     my $file_location = $self->_resolve_file_location();
     my $userdata      = $self->{'api'}->get_domain_userdata( $self->{'domain'} );
-
-    my $domains;
-    if (defined $self->{aliases}) {
-        $domains =  "$self->{domain}, $self->{aliases}";
-    }
-    else {
-        $domains = $self->{domain};
-    }
+    my $aliases       = $userdata->{serveralias};
+    $aliases =~ s/\s+/\,/g;
 
     my $hash = {
         'webroot-path' => $userdata->{'documentroot'},
-        'domains'      => $domains,
+        'domains'      => "$self->{'domain'}, $aliases",
         'domain'       => $self->{'domain'},
         'username'     => $userdata->{'user'},
     };
